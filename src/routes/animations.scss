@@ -2,18 +2,21 @@
     0% {
         top: 0px;
     }
+
     45% {
         top: -10px;
     }
+
     90% {
         top: 0px;
     }
+
     100% {
         top: 0px;
     }
 }
 
-@mixin wavy{
+@mixin wavy {
     animation-name: wavy;
     animation-duration: 0.9s;
     animation-timing-function: ease;
@@ -28,21 +31,24 @@
         top: 0px;
         left: 0px;
     }
+
     45% {
         top: 10px;
         left: -10px;
     }
+
     90% {
         top: 0px;
         left: 0px;
     }
+
     100% {
         top: 0px;
         left: 0px;
     }
 }
 
-@mixin wavy-down{
+@mixin wavy-down {
     animation-name: wavy-down;
     animation-duration: 0.9s;
     animation-timing-function: ease;
@@ -50,4 +56,24 @@
     position: relative;
     top: 0;
     left: 0;
+}
+
+
+@mixin dashed-background($color) {
+    background:
+        linear-gradient(90deg, $color 50%, transparent 0) repeat-x,
+        linear-gradient(90deg, $color 50%, transparent 0) repeat-x,
+        linear-gradient(0deg, $color 50%, transparent 0) repeat-y,
+        linear-gradient(0deg, $color 50%, transparent 0) repeat-y;
+
+    background-size:
+        var(--border-length) var(--border-width),
+        var(--border-length) var(--border-width),
+        var(--border-width) var(--border-length),
+        var(--border-width) var(--border-length);
+    background-position:
+        0 0,
+        0 100%,
+        0 0,
+        100% 0;
 }

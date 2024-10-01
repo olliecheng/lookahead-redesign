@@ -1,9 +1,13 @@
 <script lang="ts">
-    import { Status, type State } from "../state";
+    import { getControlType, ControlType, Status, type State } from "../state";
+    import Control from "./components/Control.svelte";
     export let state: State;
 
-    let disabled = "disabled";
-    $: disabled = state.status === Status.Constraints ? "enabled" : "disabled";
+    let control = ControlType.Disabled;
+    $: state,
+        (() => {
+            control = getControlType(state, Status.Constraints);
+        })();
 
     let settings = [
         {
@@ -52,38 +56,21 @@
     ];
 </script>
 
-<div class="frame {disabled}">
-    <div class="cockpit {disabled}">
-        <h2>Constraints</h2>
-        <div class="constraints">
-            <div class="days">
-                {#each days as day}
-                    <div class="day-container">
-                        <div class="day">{day.day}</div>
-                        <div class="checked">
-                            {#if day.status}
-                                YES<span class="check-logo">√</span>
-                            {:else}
-                                NO<span class="check-logo">×</span>
-                            {/if}
-                        </div>
-                    </div>
-                {/each}
-            </div>
-            {#each settings as setting}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div
-                    class="entry {setting.status ? 'yes' : 'no'}"
-                    on:click={() => {
-                        setting.status = !setting.status;
-                    }}
-                >
-                    <div class="setting-name">
-                        {setting.label}
-                    </div>
-                    <div class="dotted"></div>
+<Control
+    config={{
+        control,
+        title: "Constraints",
+        clockwise: false,
+        fg: "var(--color-theme-2)",
+    }}
+>
+    <div class="constraints" slot="body">
+        <div class="days">
+            {#each days as day}
+                <div class="day-container">
+                    <div class="day">{day.day}</div>
                     <div class="checked">
-                        {#if setting.status}
+                        {#if day.status}
                             YES<span class="check-logo">√</span>
                         {:else}
                             NO<span class="check-logo">×</span>
@@ -92,8 +79,29 @@
                 </div>
             {/each}
         </div>
+        {#each settings as setting}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <div
+                class="entry {setting.status ? 'yes' : 'no'}"
+                on:click={() => {
+                    setting.status = !setting.status;
+                }}
+            >
+                <div class="setting-name">
+                    {setting.label}
+                </div>
+                <div class="dotted"></div>
+                <div class="checked">
+                    {#if setting.status}
+                        YES<span class="check-logo">√</span>
+                    {:else}
+                        NO<span class="check-logo">×</span>
+                    {/if}
+                </div>
+            </div>
+        {/each}
     </div>
-</div>
+</Control>
 
 <style lang="scss">
     .days {
@@ -189,28 +197,26 @@
         text-align: right !important;
     }
 
-    .enabled {
-        .entry {
-            &.yes .checked {
-                color: var(--color-theme-2);
+    .entry {
+        &.yes .checked {
+            color: var(--color-theme-2);
+        }
+
+        &.no .checked {
+            color: var(--color-theme-1);
+        }
+
+        &:hover {
+            .checked {
+                color: var(--color);
             }
 
-            &.no .checked {
-                color: var(--color-theme-1);
+            &.yes {
+                background-color: var(--color-theme-bg-yes);
             }
 
-            &:hover {
-                .checked {
-                    color: var(--color);
-                }
-
-                &.yes {
-                    background-color: var(--color-theme-bg-yes);
-                }
-
-                &.no {
-                    background-color: var(--color-theme-bg-no);
-                }
+            &.no {
+                background-color: var(--color-theme-bg-no);
             }
         }
     }
