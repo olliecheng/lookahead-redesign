@@ -19,11 +19,17 @@ export enum ControlType {
 export function initialState(): State {
     return {
         controls: {
-            initial: ControlType.Foreground,
-            subjectSelect: ControlType.Disabled,
-            constraints: ControlType.Disabled,
+            initial: ControlType.Disabled,
+            subjectSelect: ControlType.Background,
+            constraints: ControlType.Foreground,
             full: ControlType.Disabled
         },
+        // controls: {
+        //     initial: ControlType.Foreground,
+        //     subjectSelect: ControlType.Disabled,
+        //     constraints: ControlType.Disabled,
+        //     full: ControlType.Disabled
+        // },
         subjects: ["COSM10004 Foundations of Time Travel", "ASTR20007 Darth Vader and Planet Vulcan"]
     }
 }

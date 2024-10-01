@@ -1,7 +1,28 @@
 <script lang="ts">
     import { ControlType, type State } from "../state";
+
     import Control from "./components/Control.svelte";
+    import Overlay from "./components/Overlay.svelte";
     export let state: State;
+
+    // developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    function getRandomInt(min: number, max: number) {
+        const minCeiled = Math.ceil(min);
+        const maxFloored = Math.floor(max);
+        return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+    }
+
+    $: random_time = "0800";
+    setInterval(() => {
+        let hour = getRandomInt(0, 15);
+        random_time =
+            hour.toString().padStart(2, "0") + random_time[2] + random_time[3];
+    }, 193);
+    setInterval(() => {
+        let min = getRandomInt(0, 60);
+        random_time =
+            random_time[0] + random_time[1] + min.toString().padStart(2, "0");
+    }, 87);
 
     let settings = [
         {
@@ -118,7 +139,43 @@
     </div>
 </Control>
 
+<Overlay>
+    <div class="time-machine">
+        <div class="time-display">{random_time}</div>
+        <button>I'm feeling lucky</button>
+
+        <input
+            type="text"
+            inputmode="numeric"
+            pattern="\d*"
+            id="name"
+            name="name"
+            class="time-display"
+            data-1p-ignore
+            minlength="4"
+            maxlength="4"
+            size="4"
+            autocomplete="off"
+        />
+    </div>
+</Overlay>
+
 <style lang="scss">
+    .time-machine {
+        display: grid;
+        width: 500px;
+        height: 300px;
+        padding: 50px;
+        font-size: 2em;
+        gap: 20px;
+        background: var(--color-bg-0);
+        grid-template-columns: 3fr 2fr;
+
+        .time-display {
+            font-size: 4em;
+        }
+    }
+
     .time {
         margin-bottom: 12px;
         display: flex;
