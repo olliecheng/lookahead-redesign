@@ -1,0 +1,53 @@
+@keyframes wavy {
+    0% {
+        top: 0px;
+    }
+    45% {
+        top: -10px;
+    }
+    90% {
+        top: 0px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+@mixin wavy{
+    animation-name: wavy;
+    animation-duration: 0.9s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+@keyframes wavy-down {
+    0% {
+        top: 0px;
+        left: 0px;
+    }
+    45% {
+        top: 10px;
+        left: -10px;
+    }
+    90% {
+        top: 0px;
+        left: 0px;
+    }
+    100% {
+        top: 0px;
+        left: 0px;
+    }
+}
+
+@mixin wavy-down{
+    animation-name: wavy-down;
+    animation-duration: 0.9s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    position: relative;
+    top: 0;
+    left: 0;
+}
