@@ -1,18 +1,12 @@
 <script lang="ts">
-    import { getControlType, ControlType, Status, type State } from "../state";
+    import { ControlType, type State } from "../state";
     import Control from "./components/Control.svelte";
     export let state: State;
-
-    let control = ControlType.Disabled;
-    $: state,
-        (() => {
-            control = getControlType(state, Status.SubjectSelect);
-        })();
 </script>
 
 <Control
     config={{
-        control,
+        control: state.controls.subjectSelect,
         title: "Subjects",
         clockwise: true,
         fg: "var(--color-theme-1)",
@@ -20,10 +14,17 @@
 >
     <svelte:fragment slot="header">
         <button
+            style="text-align: right;"
             on:click={() => {
-                state.status = Status.Constraints;
-            }}>Next</button
+                state.controls = {
+                    ...state.controls,
+                    subjectSelect: ControlType.Background,
+                    constraints: ControlType.Foreground,
+                };
+            }}
         >
+            ↗<br />Next
+        </button>
     </svelte:fragment>
 
     <div class="subject" slot="body">

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Status, ControlType } from "../../state";
+    import { ControlType } from "../../state";
 
     export let config = {
         title: "title",
@@ -48,12 +48,13 @@
         &,
         .header-buttons {
             display: flex;
+            gap: 10px;
         }
 
         .header-buttons {
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s linear;
+            transition: opacity 0.1s linear;
         }
     }
 
@@ -66,6 +67,7 @@
         }
 
         color: var(--color);
+        position: relative;
     }
 
     // general styling
@@ -121,6 +123,7 @@
     .fg {
         animation: linearGradientMove 0.5s infinite ease;
         animation-delay: 1s;
+        z-index: 100;
 
         h2:before {
             content: "►";

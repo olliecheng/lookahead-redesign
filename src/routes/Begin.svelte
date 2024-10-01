@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { State } from "../state";
-    import {Status} from "../state";
+    import { ControlType } from "../state";
 
     export let state: State;
 
@@ -8,20 +8,19 @@
     let loadButton: HTMLButtonElement;
     let focus: String | null = null;
 
-    const focusChangeHandler = (e) => {
+    const focusChangeHandler = (e: Event) => {
         if (e.target === beginButton) {
-            focus = "begin"
+            focus = "begin";
         } else if (e.target === loadButton) {
-            focus = "load"
+            focus = "load";
         } else {
             focus = null;
         }
-        console.log(focus);
-    }
+    };
 
     const blurHandler = () => {
         focus = null;
-    }
+    };
 
     const activate = (button: HTMLButtonElement) => {
         return () => {
@@ -30,12 +29,17 @@
     };
 
     const begin = () => {
-        state.status = Status.SubjectSelect;
+        state.controls = {
+            ...state.controls,
+            initial: ControlType.Disabled,
+            subjectSelect: ControlType.Foreground,
+        };
+
         document.getElementById("subject-input")?.focus();
     };
 </script>
 
-<svelte:document on:focusin={focusChangeHandler}></svelte:document>
+<svelte:document on:focusin={focusChangeHandler} />
 
 <div class="start">
     <!-- svelte-ignore a11y-autofocus -->
@@ -64,7 +68,7 @@
 
     <div class="info">
         {#if focus === "begin"}
-            create a new timetable 
+            create a new timetable
         {:else if focus === "load"}
             load an existing timetable
         {/if}

@@ -77,3 +77,14 @@
         0 0,
         100% 0;
 }
+
+@mixin animate-path($length) {
+    stroke-dasharray: $length;
+    stroke-dashoffset: $length;
+
+    &.enabled {
+        stroke-dashoffset: 0;
+    }
+
+    transition: stroke-dashoffset 1.5s linear;
+}

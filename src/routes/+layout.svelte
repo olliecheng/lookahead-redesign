@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Header from "./Header.svelte";
-	import Cockpit from "./Cockpit.svelte";
+	import Subjects from "./Subjects.svelte";
 	import Begin from "./Begin.svelte";
 	import Circle from "./Circle.svelte";
 	import Path from "./Path.svelte";
@@ -19,7 +19,7 @@
 	<main>
 		<Circle bind:state />
 		<Path bind:state />
-		<Cockpit bind:state />
+		<Subjects bind:state />
 		<div class="settings">
 			<Constraints bind:state />
 		</div>

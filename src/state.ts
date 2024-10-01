@@ -1,12 +1,12 @@
-export enum Status {
-    FirstLoad = 0,
-    SubjectSelect,
-    Constraints,
-    Full
+export interface Controls {
+    initial: ControlType,
+    subjectSelect: ControlType,
+    constraints: ControlType,
+    full: ControlType
 };
 
 export interface State {
-    status: Status;
+    controls: Controls;
     subjects: String[];
 }
 
@@ -16,19 +16,14 @@ export enum ControlType {
     Background = "bg"      // the element is interactive, but not foregrounded
 }
 
-export function getControlType(state: State, fg_state: Status): ControlType {
-    if (state.status < fg_state) {
-        return ControlType.Disabled;
-    } else if (state.status === fg_state) {
-        return ControlType.Foreground;
-    } else {
-        return ControlType.Background;
-    }
-}
-
 export function initialState(): State {
     return {
-        status: Status.FirstLoad,
+        controls: {
+            initial: ControlType.Foreground,
+            subjectSelect: ControlType.Disabled,
+            constraints: ControlType.Disabled,
+            full: ControlType.Disabled
+        },
         subjects: ["COSM10004 Foundations of Time Travel", "ASTR20007 Darth Vader and Planet Vulcan"]
     }
 }

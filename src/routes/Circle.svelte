@@ -1,18 +1,18 @@
 <script lang="ts">
-    import { Status, type State } from "../state";
+    import { ControlType, type State } from "../state";
     export let state: State;
 
     let left = 0;
     let top = 0;
     let visible = false;
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
         visible = true;
         left = e.clientX;
         top = e.clientY;
     };
 
-    const handleMouseLeave = (e) => {
+    const handleMouseLeave = (e: Event) => {
         visible = false;
     };
 </script>
@@ -22,7 +22,9 @@
     id="overlay"
     on:mousemove={handleMouseMove}
     on:mouseleave={handleMouseLeave}
-    style:display={state.status === Status.FirstLoad ? "block" : "none"}
+    style:display={state.controls.initial === ControlType.Disabled
+        ? "none"
+        : "block"}
 ></div>
 
 <div
@@ -31,7 +33,7 @@
     style:left="{left}px"
     style:opacity={visible ? 1 : 0}
 >
-<div class="begin-prompt">press begin ↰</div>
+    <div class="begin-prompt">press begin ↰</div>
 </div>
 
 <style lang="scss">
@@ -43,6 +45,7 @@
         top: 0;
         left: 0;
         cursor: none;
+        z-index: 1000;
     }
 
     #circle {
@@ -56,6 +59,7 @@
         // background: radial-gradient(closest-side, var(--color-bg-0) 25%, rgba(251,247,240, 0));
         pointer-events: none;
         backdrop-filter: invert(75%);
+        z-index: 1000;
     }
 
     .begin-prompt {

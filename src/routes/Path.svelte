@@ -1,9 +1,14 @@
 <script lang="ts">
-    import { Status, type State } from "../state";
+    import { ControlType, type State } from "../state";
     export let state: State;
 </script>
 
-<div class="path {state.status < Status.SubjectSelect ? "disabled" : "enabled"}">
+<div
+    id="path1"
+    class="path {state.controls.subjectSelect === ControlType.Disabled
+        ? 'disabled'
+        : 'enabled'}"
+>
     <svg xmlns="http://www.w3.org/2000/svg" width="83px" viewBox="30 -20 83 91">
         <path
             d="M 30 -20 L 30 71 L 113 71"
@@ -13,48 +18,44 @@
         />
     </svg>
 </div>
+<svg
+    id="path2"
+    class="path {state.controls.constraints === ControlType.Disabled
+        ? 'disabled'
+        : 'enabled'}"
+    xmlns="http://www.w3.org/2000/svg"
+    width="83px"
+    viewBox="0 0 83 310"
+>
+    <path
+        d="M 0 0 L 0 310 L 83 310"
+        stroke="#458588"
+        stroke-width="16"
+        fill="transparent"
+    />
+</svg>
 
-<style>
+<style lang="scss">
+    @import "./animations.scss";
+
     .path {
+        z-index: -99;
+    }
+    #path2 {
+        position: absolute;
+        top: -26px;
+        left: 14px;
+
+        @include animate-path(600);
+    }
+
+    #path1 {
         position: absolute;
         /* top: -20px; */
         /* left: 30px; */
         top: -26px;
         left: 30px;
 
-        z-index: -99;
-
-        stroke-dasharray: 300;
-        stroke-dashoffset: 300;
-
-        /* animation: draw 1000ms; */
-        transition: stroke-dashoffset 1.5s linear;
-    }
-
-    .enabled.path {
-        stroke-dashoffset: 0;
-    }
-
-    #first {
-        width: 10px;
-        height: 10px;
-
-        /* offset-path: path("M 30 -20 L 30 71 L 113 71"); */
-
-        /* stroke-dasharray: 0; */
-        /* stroke-dashoffset: 520; */
-
-        animation: go 1s infinite ease-in-out;
-    }
-    @keyframes go {
-        100% {
-            offset-distance: 100%;
-        }
-    }
-
-    @keyframes draw {
-        100% {
-            stroke-dashoffset: 0;
-        }
+        @include animate-path(300);
     }
 </style>

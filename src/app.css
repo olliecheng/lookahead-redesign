@@ -116,3 +116,20 @@ button:focus:not(:focus-visible) {
 	width: 1px;
 	white-space: nowrap;
 }
+
+/* This must be done in main app css because it doesn't seem to apply to component styling */
+.header-buttons button {
+	margin-top: -0.25em;
+	font-variant-caps: all-small-caps;
+	background: none;
+	color: var(--color);
+	border: none;
+	cursor: pointer;
+	line-height: 0.8em;
+
+}
+
+.header-buttons button:hover {
+	outline: 3px solid var(--color-theme-2);
+	color: black;
+}
