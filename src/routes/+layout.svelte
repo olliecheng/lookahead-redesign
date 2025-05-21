@@ -5,6 +5,7 @@
 	import Circle from "./Circle.svelte";
 	import Path from "./Path.svelte";
 	import Constraints from "./Constraints.svelte";
+	import Timetable from "./Timetable.svelte";
 	import "../app.css";
 	import { initialState } from "../state";
 
@@ -22,6 +23,7 @@
 		<Subjects bind:state />
 		<div class="settings">
 			<Constraints bind:state />
+			<Timetable bind:state />
 		</div>
 	</main>
 </div>

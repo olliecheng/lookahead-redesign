@@ -7,7 +7,9 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"test": "vitest run",
+		"test:ui": "vitest --ui"
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^5.0.0",
@@ -16,19 +18,24 @@
 		"@sveltejs/adapter-static": "^3.0.5",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@testing-library/svelte": "^5.2.8",
 		"@types/eslint": "^9.6.0",
+		"@vitest/ui": "^3.1.4",
 		"eslint": "^9.0.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
+		"jsdom": "^26.1.0",
 		"sass-embedded": "^1.79.4",
 		"svelte": "^4.2.7",
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0",
-		"vite": "^5.0.3"
+		"vite": "^5.0.3",
+		"vitest": "^3.1.4"
 	},
 	"type": "module",
 	"dependencies": {
+		"optimiser": "github:LookaheadProject/optimiser#main",
 		"svelte-overlay": "^1.4.1"
 	}
 }

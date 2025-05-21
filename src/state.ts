@@ -2,34 +2,40 @@ export interface Controls {
     initial: ControlType,
     subjectSelect: ControlType,
     constraints: ControlType,
-    full: ControlType
+    full: ControlType,
+    timetable: ControlType
 };
 
 export interface State {
     controls: Controls;
     subjects: String[];
+    timetableData: any[];
 }
 
 export enum ControlType {
     Disabled = "disabled", // all colour should be disabled and nothing should be clickable
     Foreground = "fg",     // focus should be on the element and animations are shown
-    Background = "bg"      // the element is interactive, but not foregrounded
+    Background = "bg",      // the element is interactive, but not foregrounded
+    Timetable = "timetable"
 }
 
 export function initialState(): State {
     return {
         controls: {
-            initial: ControlType.Disabled,
-            subjectSelect: ControlType.Background,
-            constraints: ControlType.Foreground,
-            full: ControlType.Disabled
+            initial: ControlType.Foreground,
+            subjectSelect: ControlType.Disabled,
+            constraints: ControlType.Disabled,
+            full: ControlType.Disabled,
+            timetable: ControlType.Disabled
         },
         // controls: {
         //     initial: ControlType.Foreground,
         //     subjectSelect: ControlType.Disabled,
         //     constraints: ControlType.Disabled,
-        //     full: ControlType.Disabled
+        //     full: ControlType.Disabled,
+        //     timetable: ControlType.Disabled
         // },
-        subjects: ["COSM10004 Foundations of Time Travel", "ASTR20007 Darth Vader and Planet Vulcan"]
+        subjects: ["COSM10004 Foundations of Time Travel", "ASTR20007 Darth Vader and Planet Vulcan"],
+        timetableData: []
     }
 }
